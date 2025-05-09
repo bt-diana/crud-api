@@ -10,11 +10,6 @@ This project is a **simple CRUD API** using an **in-memory database** to manage 
 - **Update User:** Modify an existing user's information.
 - **Delete User:** Remove a user from the database.
 
-### Load Balancer
-- Implements a **Round-robin algorithm** for distributing incoming requests across multiple instances.
-- Ensures **consistent state** between worker instances.
-- Supports horizontal scaling using the **Node.js Cluster API**.
-
 ### Error Handling
 - Proper HTTP status codes and messages for:
   - Non-existent endpoints (404).
@@ -48,7 +43,7 @@ This project is a **simple CRUD API** using an **in-memory database** to manage 
 1. Clone the repository:
 
 ```bash
-git clone <repository-link>
+git clone https://github.com/bt-diana/crud-api.git
 ```
 
 2. Navigate to the project directory:
@@ -98,16 +93,15 @@ Run automated tests to ensure that API works correctly:
 ```bash
 npm test
 ```
+
 Tests cover basic CRUD operations and error handling scenarios.
 
 ## Technologies Used
 
 - Node.js (v22.14.0 or higher)
-- TypeScript (optional)
-- Nodemon, ts-node-dev (for development)
-- Cluster API (for horizontal scaling)
-- Prettier, ESLint (code quality)
-- UUID (for unique user IDs)
+- TypeScript
+- ts-node-dev
+- Prettier, ESLint
 
 ## License
 

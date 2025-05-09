@@ -2,7 +2,7 @@
   "name": "crud-api",
   "version": "1.0.0",
   "description": "This repository is the solution of nodejs-assignments https://github.com/AlreadyBored/nodejs-assignments/blob/main/assignments/crud-api/assignment.md",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/bt-diana/crud-api/issues"
   },
-  "homepage": "https://github.com/bt-diana/crud-api#readme"
+  "homepage": "https://github.com/bt-diana/crud-api#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.26.0",
+    "eslint": "^9.26.0",
+    "globals": "^16.1.0",
+    "prettier": "3.5.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript-eslint": "^8.32.0"
+  }
 }

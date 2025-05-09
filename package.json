@@ -1,0 +1,19 @@
+{
+  "name": "crud-api",
+  "version": "1.0.0",
+  "description": "This repository is the solution of nodejs-assignments https://github.com/AlreadyBored/nodejs-assignments/blob/main/assignments/crud-api/assignment.md",
+  "type":"module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bt-diana/crud-api.git"
+  },
+  "author": "bt-diana",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bt-diana/crud-api/issues"
+  },
+  "homepage": "https://github.com/bt-diana/crud-api#readme"
+}

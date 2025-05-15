@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/bt-diana/crud-api.git"
   },
-  "author": "bt-diana",
+  "author": "Butiakova Diana <butyakova01@gmail.com> (https://github.com/bt-diana)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bt-diana/crud-api/issues"

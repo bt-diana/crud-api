@@ -1,6 +1,6 @@
 # CRUD API
 
-This project is a **simple CRUD API** using an **in-memory database** to manage users. The API supports creating, reading, updating, and deleting users, and it follows RESTful principles. The proejct is implemented using **Node.js**.
+This project is a **simple CRUD API** using an **in-memory database** to manage users. The API supports creating, reading, updating, and deleting users, and it follows RESTful principles. It is implemented using Node.js with support for **horizontal scaling** via the Cluster API.
 
 ## Features
 
@@ -9,6 +9,11 @@ This project is a **simple CRUD API** using an **in-memory database** to manage 
 - **Read User:** Retrieve all users or a specific user by ID.
 - **Update User:** Modify an existing user's information.
 - **Delete User:** Remove a user from the database.
+
+### Load Balancer
+- Implements a **Round-robin algorithm** for distributing incoming requests across multiple instances.
+- Ensures **consistent state** between worker instances.
+- Supports horizontal scaling using the **Node.js Cluster API**.
 
 ### Error Handling
 - Proper HTTP status codes and messages for:
@@ -68,7 +73,7 @@ npm install
 
 4. Create a `.env` file in the root directory and specify the port:
 
-```
+```ini
 PORT=4000
 ```
 ## Running the Project
@@ -87,6 +92,25 @@ Build and run the server:
 npm run start:prod
 ```
 
+### Multi-Instance Mode
+Start multiple instances with load balancing:
+
+```bash
+npm run start:multi
+```
+
+The server will listen on the following ports:
+
+- Load Balancer: http://localhost:4000/api
+
+- Workers:
+
+  - http://localhost:4001/api
+
+  - http://localhost:4002/api
+
+  - http://localhost:4003/api
+
 ## Testing
 Run automated tests to ensure that API works correctly:
 
@@ -101,6 +125,7 @@ Tests cover basic CRUD operations and error handling scenarios.
 - Node.js (v22.14.0 or higher)
 - TypeScript
 - ts-node-dev
+- Cluster API
 - Prettier, ESLint
 
 ## License

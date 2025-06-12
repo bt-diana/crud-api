@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start:dev": "nodemon -I --exec node --loader ts-node/esm ./src/index.ts",
-    "start:prod": ""
+    "start:prod": "npx tsc --project ./tsconfig.json && node ./dist/index.js"
   },
   "repository": {
     "type": "git",

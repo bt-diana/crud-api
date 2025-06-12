@@ -1,6 +1,7 @@
 import { createServer } from 'node:http';
+import 'dotenv/config';
 
-const port = 3000;
+const port = process.env.port;
 
 const server = createServer();
 

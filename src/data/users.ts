@@ -1,13 +1,13 @@
 import { randomUUID } from 'crypto';
 
-type user = {
+type User = {
     id: string;
     username: string;
     age: number;
     hobbies: string[];
 };
 
-const users: user[] = [
+const users: User[] = [
     {
         id: randomUUID(),
         username: 'skywalker92',
@@ -42,11 +42,11 @@ const users: user[] = [
 
 const getUsers = () => users;
 const getUser = (idToFind: string) => users.find(({ id }) => id === idToFind);
-const addUser = (newUser: user) => {
+const addUser = (newUser: User) => {
     users.push(newUser);
     return { ...newUser };
 };
-const updateUser = (userToUpdate: user) => {
+const updateUser = (userToUpdate: User) => {
     for (let i = 0; i < users.length; i++) {
         if (users[i]?.id === userToUpdate.id) {
             users[i] = userToUpdate;

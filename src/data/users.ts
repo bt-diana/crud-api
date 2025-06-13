@@ -44,25 +44,25 @@ const getUsers = () => users;
 const getUser = (idToFind: string) => users.find(({ id }) => id === idToFind);
 const addUser = (newUser: User) => {
     users.push(newUser);
-    return { ...newUser };
+    return newUser;
 };
-const updateUser = (userToUpdate: User) => {
+const updateUser = (userToUpdate: Partial<User> & Pick<User, 'id'>) => {
     for (let i = 0; i < users.length; i++) {
-        if (users[i]?.id === userToUpdate.id) {
-            users[i] = userToUpdate;
-            return { ...users[i] };
+        if (users[i]!.id === userToUpdate.id) {
+            users[i] = { ...users[i]!, ...userToUpdate };
+            return users[i];
         }
     }
-
-    addUser(userToUpdate);
 };
 const deleteUser = (idToDelete: string) => {
     for (let i = 0; i < users.length; i++) {
         if (users[i]?.id === idToDelete) {
             users.splice(i, 1);
-            return [...users];
+            return true;
         }
     }
 };
+
+export type { User };
 
 export { getUsers, getUser, addUser, updateUser, deleteUser };

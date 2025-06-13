@@ -11,5 +11,5 @@ server.listen(port, () => {
 });
 
 server.on('error', (error: Error) => {
-    console.error('Some error occurred:', error);
+    console.error('An error occurred:', error);
 });

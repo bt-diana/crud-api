@@ -46,7 +46,7 @@ const addUser = (newUser: User) => {
     users.push(newUser);
     return newUser;
 };
-const updateUser = (userToUpdate: Partial<User> & Pick<User, 'id'>) => {
+const updateUser = (userToUpdate: User) => {
     for (let i = 0; i < users.length; i++) {
         if (users[i]!.id === userToUpdate.id) {
             users[i] = { ...users[i]!, ...userToUpdate };

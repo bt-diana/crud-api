@@ -13,33 +13,35 @@ enum Endpoints {
     users = '/api/users',
 }
 
-enum ResponseCode {
+enum ResCode {
     success = 200,
     created = 201,
     deleted = 204,
     invalidData = 400,
     notFound = 404,
+    internalError = 500,
+}
+
+enum ResMessage {
+    invalidId = 'Not valid id (not uuid)',
+    invalidBody = 'Request body does not contain required fields ro containg wrong data type',
+    resourseNotFound = 'Resource does not exist',
+    userNotFound = "User with provided id doesn't exist",
+    internalErorr = 'Internal Server Error',
 }
 
 const sendResponse = (
     res: ServerResponse,
-    code: ResponseCode,
-    data?: string | User | User[],
+    code: ResCode,
+    data?: ResMessage | User | User[],
 ): void => {
-    if (!data) {
+    if (data) {
+        res.writeHead(code, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(data));
+    } else {
         res.writeHead(code);
         res.end();
-        return;
     }
-
-    if (typeof data === 'string') {
-        res.writeHead(code, { 'Content-Type': 'text' });
-        res.end(data);
-        return;
-    }
-
-    res.writeHead(code, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(data));
 };
 
 const requestListener: RequestListener<
@@ -48,7 +50,7 @@ const requestListener: RequestListener<
 > = (req, res) => {
     if (req.url === Endpoints.users) {
         if (req.method === 'GET') {
-            sendResponse(res, ResponseCode.success, getUsers());
+            sendResponse(res, ResCode.success, getUsers());
             return;
         }
 
@@ -56,11 +58,7 @@ const requestListener: RequestListener<
             const id = req.url.slice(Endpoints.users.length + 1);
 
             if (!id || !uuidIsValid(id)) {
-                sendResponse(
-                    res,
-                    ResponseCode.invalidData,
-                    'Not valid id (not uuid)',
-                );
+                sendResponse(res, ResCode.invalidData, ResMessage.invalidId);
                 return;
             }
 
@@ -82,8 +80,8 @@ const requestListener: RequestListener<
                 ) {
                     sendResponse(
                         res,
-                        ResponseCode.invalidData,
-                        `Request body does not contain required fields ro containg wrong data type`,
+                        ResCode.invalidData,
+                        ResMessage.invalidBody,
                     );
                     return;
                 }
@@ -96,7 +94,7 @@ const requestListener: RequestListener<
                 });
 
                 if (user) {
-                    sendResponse(res, ResponseCode.success, user);
+                    sendResponse(res, ResCode.success, user);
                     return;
                 }
             });
@@ -109,18 +107,14 @@ const requestListener: RequestListener<
         const id = req.url.slice(Endpoints.users.length + 1);
 
         if (!id || !uuidIsValid(id)) {
-            sendResponse(
-                res,
-                ResponseCode.invalidData,
-                'Not valid id (not uuid)',
-            );
+            sendResponse(res, ResCode.invalidData, ResMessage.invalidId);
             return;
         }
 
         if (req.method === 'GET') {
             const user = getUser(id);
             if (user) {
-                sendResponse(res, ResponseCode.success, user);
+                sendResponse(res, ResCode.success, user);
                 return;
             }
         }
@@ -144,8 +138,8 @@ const requestListener: RequestListener<
                 ) {
                     sendResponse(
                         res,
-                        ResponseCode.invalidData,
-                        `Request body does not contain required fields ro containg wrong data type`,
+                        ResCode.invalidData,
+                        ResMessage.invalidBody,
                     );
                     return;
                 }
@@ -158,7 +152,7 @@ const requestListener: RequestListener<
                 });
 
                 if (user) {
-                    sendResponse(res, ResponseCode.success, user);
+                    sendResponse(res, ResCode.success, user);
                     return;
                 }
 
@@ -170,7 +164,7 @@ const requestListener: RequestListener<
                 });
 
                 if (newUser) {
-                    sendResponse(res, ResponseCode.created, newUser);
+                    sendResponse(res, ResCode.created, newUser);
                     return;
                 }
             });
@@ -180,20 +174,16 @@ const requestListener: RequestListener<
 
         if (req.method === 'DELETE') {
             if (deleteUser(id)) {
-                sendResponse(res, ResponseCode.deleted, 'Deleted succesfully');
+                sendResponse(res, ResCode.deleted);
                 return;
             }
         }
 
-        sendResponse(
-            res,
-            ResponseCode.notFound,
-            `User with with id ${id} doesn't exist`,
-        );
+        sendResponse(res, ResCode.notFound, ResMessage.userNotFound);
         return;
     }
 
-    sendResponse(res, ResponseCode.notFound, `Resource does not exist`);
+    sendResponse(res, ResCode.notFound, ResMessage.resourseNotFound);
 };
 
 export default requestListener;
